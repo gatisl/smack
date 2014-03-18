@@ -554,7 +554,13 @@ public class XMPPConnection extends Connection {
     }
 
     private void connectUsingConfiguration(ConnectionConfiguration config) throws XMPPException {
-        XMPPException exception = null;
+        Exception exception = null;
+        try {
+            config.maybeResolveDns();
+        }
+        catch (Exception e) { // TODO wrap? or throw directly? This would mean that connect() also throws generic Exception
+            throw new XMPPException(e);
+        }
         Iterator<HostAddress> it = config.getHostAddresses().iterator();
         List<HostAddress> failedAddresses = new LinkedList<HostAddress>();
         boolean xmppIOError = false;
