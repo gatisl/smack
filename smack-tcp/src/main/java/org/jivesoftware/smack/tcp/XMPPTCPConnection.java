@@ -644,6 +644,7 @@ public class XMPPTCPConnection extends XMPPConnection {
         // Secure the plain connection
         socket = context.getSocketFactory().createSocket(plain,
                 plain.getInetAddress().getHostAddress(), plain.getPort(), true);
+        ((SSLSocket) socket).setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1", "TLSv1"});
         // Initialize the reader and writer with the new secured version
         initReaderAndWriter();
 
