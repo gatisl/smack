@@ -219,12 +219,14 @@ public class XMPPConnection extends Connection {
     @Override
     public synchronized void login(String username, String password, String resource)
             throws XMPPException {
-        perform_sasl(username, password);
+        
 
         // If compression is enabled then request the server to use stream compression
         if (config.isCompressionEnabled()) {
             useCompression();
         }
+		
+		perform_sasl(username, password);
 
         if (resource != null)
             perform_bind(resource);
@@ -269,12 +271,14 @@ public class XMPPConnection extends Connection {
 
     @Override
     public synchronized void loginAnonymously() throws XMPPException {
-        perform_sasl_anon();
+        
 
         // If compression is enabled then request the server to use stream compression
         if (config.isCompressionEnabled()) {
             useCompression();
         }
+		
+		perform_sasl_anon();
 
         perform_bind(null);
 
